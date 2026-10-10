@@ -8,16 +8,16 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html,body{height:100%;overflow:hidden;background:#070a1a;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;color:#fff;-webkit-user-select:none;user-select:none}
 
-#viewMenu{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;overflow-y:auto;overflow-x:hidden;z-index:1}
+
 #viewClassic,#viewBattle{position:fixed;inset:0;display:none;z-index:1}
 
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 html{min-height:100%;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-serif;
   color:#fff;-webkit-user-select:none;user-select:none}
 #viewMenu{background:linear-gradient(165deg,#0b0720 0%,#221055 52%,#0a1a3a 100%);
-  display:flex;flex-direction:column;align-items:center;
+  position:fixed;inset:0;overflow-y:scroll;overflow-x:hidden;z-index:1;touch-action:pan-y;-webkit-overflow-scrolling:touch;text-align:center;
   padding:calc(34px + env(safe-area-inset-top)) 22px calc(26px + env(safe-area-inset-bottom));
-  overflow-x:hidden;position:relative}
+  display:flex;flex-direction:column;align-items:center;}
 /* 背景光球 + 星星 */
 .m-orb{position:fixed;border-radius:50%;filter:blur(70px);opacity:.4;pointer-events:none;z-index:0;
   animation:float 10s ease-in-out infinite alternate}
@@ -31,7 +31,7 @@ html{min-height:100%;font-family:"PingFang SC","Microsoft YaHei",system-ui,sans-
 /* 标题 */
 .m-mascot{font-size:58px;z-index:1;animation:bob 2.4s ease-in-out infinite;filter:drop-shadow(0 6px 16px rgba(255,79,184,.5))}
 @keyframes bob{0%,100%{transform:translateY(0) rotate(-6deg)}50%{transform:translateY(-10px) rotate(6deg)}}
-#viewMenu h1{font-size:40px;font-weight:900;letter-spacing:3px;text-align:center;z-index:1;margin-top:6px;
+#viewMenu h1{font-size:40px;width:100%;font-weight:900;letter-spacing:3px;text-align:center;z-index:1;margin-top:6px;
   background:linear-gradient(90deg,#fff35c,#ff4fb8,#34e0ff,#fff35c);background-size:300% 100%;
   -webkit-background-clip:text;background-clip:text;color:transparent;
   animation:sheen 6s linear infinite;filter:drop-shadow(0 0 16px rgba(255,79,184,.4))}
@@ -108,9 +108,9 @@ html,body{margin:0;padding:0;height:100%;width:100%;overflow:hidden;position:fix
 #btns{display:flex;gap:6px;margin-top:4px;pointer-events:auto;flex-wrap:wrap;justify-content:flex-end}
 #btns button{width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.25);
   background:rgba(255,255,255,.1);color:#fff;font-size:15px;cursor:pointer;font-family:inherit}
-#ov{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;
-  background:rgba(10,5,30,.55);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:3}
-#ov .panel{max-height:94vh;overflow-y:auto;-webkit-overflow-scrolling:touch;touch-action:pan-y}
+#ov{position:fixed;inset:0;overflow-y:auto;overflow-y:scroll;overflow-x:hidden;-webkit-overflow-scrolling:touch;touch-action:pan-y;
+  background:rgba(10,5,30,.55);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);z-index:3;padding:24px 0}
+#ov .panel{margin:0 auto;touch-action:pan-y;position:relative}
 .panel{text-align:center;padding:26px 30px;max-width:92vw;border-radius:24px;
   background:linear-gradient(160deg,rgba(60,25,120,.75),rgba(20,10,60,.8));
   border:1px solid rgba(255,255,255,.18);
@@ -193,9 +193,10 @@ body.bt-force-land{--st:env(safe-area-inset-right,0px);--sr:env(safe-area-inset-
 body.bt-force-land #btstage{left:50%;top:50%;transform:translate(-50%,-50%) rotate(90deg);transform-origin:center center}
 #btcv{position:fixed;inset:0;display:block}
 #bthud{position:fixed;top:calc(10px + var(--st));left:calc(12px + var(--sl));z-index:5;pointer-events:none}
-#btlb{background:rgba(10,14,35,.62);border:1px solid rgba(120,140,255,.25);border-radius:14px;padding:4px 6px;min-width:118px;backdrop-filter:blur(4px)}
+#btlb{background:rgba(10,14,35,.62);border:1px solid rgba(120,140,255,.25);border-radius:14px;padding:4px 6px;min-width:150px;backdrop-filter:blur(4px)}
 #btlb h4{font-size:9px;margin-bottom:2px;color:#9fb2ff;letter-spacing:2px;margin-bottom:4px}
-#btlb .bt-r{display:flex;justify-content:space-between;gap:4px;font-size:9px;padding:1px 0;line-height:1.3;color:#cfd8ff}
+#btlb .bt-me{color:#fff35c;font-weight:900}
+.bt-r{display:flex;justify-content:space-between;gap:6px;font-size:10px;padding:2px 0;line-height:1.4;color:#cfd8ff;white-space:nowrap}
 #btlb .bt-r.me{color:#fff35c;font-weight:900}
 #btlb .bt-r b{font-variant-numeric:tabular-nums}
 #btlb .bt-r em{font-style:normal;font-size:8px;color:#c9a86a;opacity:.85;margin-left:4px;font-weight:700}
@@ -269,7 +270,7 @@ body.bt-force-land #btstage{left:50%;top:50%;transform:translate(-50%,-50%) rota
   pointer-events:none;text-align:center;text-shadow:0 1px 4px #000;transition:opacity .8s;opacity:0}
 @media (max-height:430px){
   #btlb{padding:6px 10px;min-width:180px}
-  #btlb .bt-r{font-size:12px;padding:1px 0}
+  #btlb 
   #btov .bt-panel{padding:10px 22px}
   #btov h2{font-size:20px;margin-bottom:4px}
   #btov p{font-size:12px;margin:2px 0}
@@ -861,7 +862,7 @@ function showStart(){
   const lb=DB.list.slice().sort((a,b)=>b.best-a.best).map((p,i)=>
     `<div class="lbrow${p.id===DB.cur?' me':''}"><span>${md[i]} ${esc(p.name)}</span><b>${p.best}</b></div>`).join('');
   const df=Object.keys(DIFFS).map(k=>`<button class="chip${k===diff?' on':''}" data-act="diff:${k}">${DIFFS[k].e} ${DIFFS[k].name}</button>`).join('');
-  ov.innerHTML=`<div class="panel"><h1>多巴胺贪吃蛇</h1><div class="sub">DOPAMINE 3D SNAKE</div>
+  ov.innerHTML=`<div class="panel"><button id="cBack" style="position:absolute;left:12px;top:10px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:14px;padding:4px 10px;font-size:12px">🏠 返回</button><h1>多巴胺贪吃蛇</h1><div class="sub">DOPAMINE 3D SNAKE</div>
   <div class="sec">👨‍👩‍👧 选择玩家</div><div class="chips">${pl}</div>
   <div class="sec">🏆 家庭排行榜</div><div class="lbbox">${lb}</div>
   <div class="sec">🐢 难度</div><div class="chips">${df}</div><div class="hint">${DIFFS[diff].hint}</div>
@@ -1020,7 +1021,7 @@ let tx=0,ty=0,tOn=false;
 addEventListener('touchstart',e=>{
   if(activeGame!=='classic')return;
   unlockAudio();
-  if(e.target.closest('button')||e.target.closest('#setp')||e.target.closest('#ov .panel'))return;
+  if(e.target.closest('button')||e.target.closest('#setp')||e.target.closest('#ov'))return;
   const t=e.touches[0];tx=t.clientX;ty=t.clientY;tOn=true;
 },{passive:true});
 addEventListener('touchmove',e=>{
@@ -1708,7 +1709,7 @@ document.addEventListener('visibilitychange',()=>{if(document.hidden)pause()});
 addEventListener('blur',pause);
 document.addEventListener('touchmove',e=>{
   if(activeGame!=='classic')return;
-  if(e.target.closest&&(e.target.closest('#setp')||e.target.closest('#ov .panel')))return;
+  if(e.target.closest&&(e.target.closest('#setp')||e.target.closest('#ov')))return;
   e.preventDefault();
 },{passive:false});
 bindPlayer();
@@ -2313,9 +2314,9 @@ function showMenu(){state='menu';exitLandscape();buildMenu();$('btmenu').style.d
 $('btmGo').onclick=()=>{unlockAudio();sfxClick();startRun()};
 $('btbtnRe').onclick=()=>{sfxClick();startRun()};
 $('btbtnSk').onclick=()=>{sfxClick();showMenu()};
-$('btmBack').onclick=()=>{sfxClick();location.href='index.html'};
+$('btmBack').onclick=()=>{sfxClick();showView('menu')};
 $('btbMute').onclick=e=>{unlockAudio();muted=!muted;e.target.textContent=muted?'🔇':'🔊';if(muted)stopBgm();else startBgm();sfxClick()};
-$('btbHome').onclick=()=>{sfxClick();if(state==='play')commitRun();location.href='index.html'};
+$('btbHome').onclick=()=>{sfxClick();if(state==='play')commitRun();showMenu();};
 addEventListener('pagehide',()=>{if(state==='play')commitRun()});
 /* ===== 固定摇杆（左下角常驻） ===== */
 let joyId=null,mouseJoy=false;
@@ -2356,7 +2357,7 @@ bBoost.addEventListener('touchend',()=>{player.boost=false;bBoost.classList.remo
 bBoost.addEventListener('touchcancel',()=>{player.boost=false;bBoost.classList.remove('on')});
 bBoost.addEventListener('mousedown',e=>{e.preventDefault();player.boost=true;bBoost.classList.add('on')});
 addEventListener('mouseup',()=>{if(!mouseJoy){player.boost=false;bBoost.classList.remove('on')}});
-document.addEventListener('touchmove',e=>{if(!e.target.closest||!e.target.closest('#btskG,#btov .panel'))e.preventDefault()},{passive:false});
+document.addEventListener('touchmove',e=>{if(!e.target.closest||!e.target.closest('#btskG,#btov .panel,#viewMenu'))e.preventDefault()},{passive:false});
 function trail(s,t){
   const sk=SKINS[s.skin],n=s.segs.length,i=(Math.random()*n)|0,sg=s.segs[i],c=sk.col(i,n,t);
   const x=sg.x+rnd(-5,5),y=sg.y+rnd(-5,5);
@@ -2660,7 +2661,7 @@ function updateHud(dt){
   lbT-=dt;
   if(lbT<=0){lbT=500;
     const rows=[...snakes].sort((a,b)=>snakeLen(b)-snakeLen(a)).slice(0,8);
-    $('btlbRows').innerHTML=rows.map((s,i)=>{const cc=SKINS[s.skin].col(0,10,0);const ccss=`hsl(${cc[0]},${cc[1]}%,70%)`;return `<div class="r${s===player?' me':''}"><span><i style="color:${ccss};font-style:normal;font-size:8px">●</i><font color="${ccss}"><b>${s.name}</b></font>${s.alive?'':'💀'} <em>· ${rname(s.realm,s.sub)}</em></span><b>${snakeLen(s)}</b></div>`}).join('');
+    $('btlbRows').innerHTML=rows.map((s,i)=>{const cc=SKINS[s.skin].col(0,10,0);const ccss=`hsl(${cc[0]},${cc[1]}%,70%)`;return `<div class="bt-r${s===player?' bt-me':''}"><span><i style="color:${ccss};font-style:normal;font-size:8px">●</i><font color="${ccss}"><b>${s.name}</b></font>${s.alive?'':'💀'} <em>· ${rname(s.realm,s.sub)}</em></span><b>${snakeLen(s)}</b></div>`}).join('');
   }
   const L=snakeLen(player),K=player.kills,Sc=total(),E=Math.round(run.energy);
   if(L!==cL){cL=L;$('btlenV').textContent=L}
@@ -2760,6 +2761,18 @@ requestAnimationFrame(loop);
     const d=document.createElement('i');d.style.animationDelay=(i*0.09)+'s';
     w.appendChild(d);
   }
+})();
+(function(){
+  function addTouchScroll(el){
+    if(!el)return;
+    var sy=0,sl=0;
+    el.addEventListener('touchstart',function(e){sy=e.touches[0].clientY;sl=el.scrollTop},{passive:true});
+    el.addEventListener('touchmove',function(e){var dy=sy-e.touches[0].clientY;if(Math.abs(dy)>4){el.scrollTop=sl+dy;e.preventDefault();}},{passive:false});
+  }
+  addTouchScroll(document.getElementById('ov'));
+  addTouchScroll(document.getElementById('viewMenu'));
+  addTouchScroll(document.getElementById('btov'));
+  document.addEventListener('click',function(e){if(e.target&&e.target.id==='cBack'){showView('menu');}});
 })();
 document.querySelectorAll('#viewMenu [data-go]').forEach(a=>a.addEventListener('click',e=>{e.preventDefault();showView(a.dataset.go)}));
 </script>
